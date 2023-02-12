@@ -100,7 +100,7 @@ std::string fb::HtmlCoder::decode(std::string input) {
 
     for (auto const &item : entities) {
 #if DEBUG
-        std::cout << "x: " << x << std::endl;
+        std::cout << "x: " << item << std::endl;
 #endif
         const size_t length = item.length();
         const char identifier = item[1];
