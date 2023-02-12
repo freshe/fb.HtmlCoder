@@ -35,7 +35,8 @@ std::set<std::string> fb::HtmlCoder::get_entities(const std::string &input) {
         if (c == '&') {
             ampersand_pos = i;
         }
-        else if (c == ';') {
+        
+        if (c == ';') {
             if (ampersand_pos > 0) {
                 const size_t entity_length = i - ampersand_pos + 1;
                 
@@ -86,8 +87,12 @@ void fb::HtmlCoder::replace(std::string &subject, const std::string &search, con
 }
 
 std::string fb::HtmlCoder::decode(std::string input) {
-    std::set<std::string> entities = HtmlCoder::get_entities(input);
+    if (input.empty()) {
+        return input;
+    }
 
+    std::set<std::string> entities = HtmlCoder::get_entities(input);
+    
     if (entities.size() == 0) {
         /* No entities found, just return the original string */
         return input;
@@ -100,7 +105,7 @@ std::string fb::HtmlCoder::decode(std::string input) {
         std::string decoded;
 
         if (identifier == '#') {
-            /* Uncicode number */
+            /* Unicode number */
             const bool isHex = number_type == 'x' || number_type == 'X';
             const size_t number = HtmlCoder::get_entity_number(x, isHex);
 
