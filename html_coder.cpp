@@ -98,33 +98,33 @@ std::string fb::HtmlCoder::decode(std::string input) {
         return input;
     }
 
-    for (auto const &x : entities) {
+    for (auto const &item : entities) {
 #if DEBUG
         std::cout << "x: " << x << std::endl;
 #endif
-        const size_t length = x.length();
-        const char identifier = x[1];
-        const char number_type = x[2];
+        const size_t length = item.length();
+        const char identifier = item[1];
+        const char number_type = item[2];
         std::string decoded;
 
         if (identifier == '#') {
             /* Unicode number */
             const bool isHex = number_type == 'x' || number_type == 'X';
-            const size_t number = HtmlCoder::get_entity_number(x, isHex);
+            const size_t number = HtmlCoder::get_entity_number(item, isHex);
 
             if (number > 0) {
                 decoded = HtmlCoder::decode_entity(number);
             }
         } else {
             /* Named entity. &amp; and things like that */
-            auto pos = named_html_entities.find(x);
+            auto pos = named_html_entities.find(item);
             if (pos != named_html_entities.end()) {
                 decoded = pos->second;
             }
         }
 
         if (!decoded.empty()) {
-            HtmlCoder::replace(input, x, decoded);
+            HtmlCoder::replace(input, item, decoded);
         }
     }
 
