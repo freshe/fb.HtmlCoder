@@ -11,5 +11,5 @@ const std::string html_encoded_text =
 const auto html_decoded_text = html_decoder.decode(html_encoded_text);
 std::cout << html_decoded_text << std::endl;
 
-//-> Unescaped: Some text with HTML stuff in it. &"¶¾
+//-> Unescape : Some text with HTML stuff in it. &"¶¾
 ```
