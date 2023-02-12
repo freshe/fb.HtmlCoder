@@ -1,6 +1,6 @@
 # fb.HtmlCoder
 
-*A dinky little C++ HTML decoder I use for my own stuff*
+*A dinky little C++ HTML decoder I use for decoding html entities in my own stuff*
 
 ```cpp
 fb::HtmlCoder html_decoder;
