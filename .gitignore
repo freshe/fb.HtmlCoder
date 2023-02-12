@@ -1,0 +1,4 @@
+.vscode
+*.obj
+*.DS_Store
+*.thumbs.db
