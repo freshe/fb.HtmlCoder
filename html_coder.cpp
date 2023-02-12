@@ -26,7 +26,7 @@
 
 std::set<std::string> fb::HtmlCoder::get_entities(const std::string &input) {
     std::set<std::string> entities;
-    size_t ampersand_pos = 0;
+    long long ampersand_pos = -1;
     const size_t length = input.length();
 
     for (size_t i = 0; i < length; i++) {
@@ -37,7 +37,7 @@ std::set<std::string> fb::HtmlCoder::get_entities(const std::string &input) {
         }
         
         if (c == ';') {
-            if (ampersand_pos > 0) {
+            if (ampersand_pos >= 0) {
                 const size_t entity_length = i - ampersand_pos + 1;
                 
                 if (entity_length >= 3 && entity_length <= 50) {
@@ -49,7 +49,7 @@ std::set<std::string> fb::HtmlCoder::get_entities(const std::string &input) {
                     }
                 }
 
-                ampersand_pos = 0;
+                ampersand_pos = -1;
             }
         }
     }
@@ -99,6 +99,9 @@ std::string fb::HtmlCoder::decode(std::string input) {
     }
 
     for (auto const &x : entities) {
+#if DEBUG
+        std::cout << "x: " << x << std::endl;
+#endif
         const size_t length = x.length();
         const char identifier = x[1];
         const char number_type = x[2];
