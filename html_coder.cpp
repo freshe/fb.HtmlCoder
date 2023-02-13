@@ -24,7 +24,7 @@
 
 #include "html_coder.hpp"
 
-std::set<std::string> fb::HtmlCoder::get_entities(const std::string &input) {
+std::set<std::string> fb::HtmlCoder::get_entities(const std::string& input) {
     std::set<std::string> entities;
     long long ampersand_pos = -1;
     const size_t length = input.length();
@@ -34,6 +34,7 @@ std::set<std::string> fb::HtmlCoder::get_entities(const std::string &input) {
 
         if (c == '&') {
             ampersand_pos = i;
+            continue;
         }
         
         if (c == ';') {
@@ -57,9 +58,7 @@ std::set<std::string> fb::HtmlCoder::get_entities(const std::string &input) {
     return entities;
 }
 
-std::string fb::HtmlCoder::decode_entity(const size_t &number) {
-    std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> convert;
-
+std::string fb::HtmlCoder::decode_entity(const size_t& number) {
     try {
         const std::string result = convert.to_bytes(static_cast<char32_t>(number));
         return result;
@@ -70,7 +69,7 @@ std::string fb::HtmlCoder::decode_entity(const size_t &number) {
     return std::string{};
 }
 
-std::size_t fb::HtmlCoder::get_entity_number(const std::string &entity, const bool isHex) {
+std::size_t fb::HtmlCoder::get_entity_number(const std::string& entity, const bool isHex) {
     const size_t start_pos = isHex ? 3 : 2;
     const std::string temp = entity.substr(start_pos, entity.length() - start_pos - 1);
     const size_t number = strtol(temp.c_str(), nullptr, isHex ? 16 : 10);
@@ -78,7 +77,7 @@ std::size_t fb::HtmlCoder::get_entity_number(const std::string &entity, const bo
     return number;
 }
 
-void fb::HtmlCoder::replace(std::string &subject, const std::string &search, const std::string &replace) {
+void fb::HtmlCoder::replace(std::string& subject, const std::string& search, const std::string& replace) {
     size_t pos = 0;
     while ((pos = subject.find(search, pos)) != std::string::npos) {
          subject.replace(pos, search.length(), replace);
@@ -100,7 +99,7 @@ std::string fb::HtmlCoder::decode(std::string input) {
 
     for (auto const &item : entities) {
 #if DEBUG
-        std::cout << "x: " << item << std::endl;
+        std::cout << "item: " << item << std::endl;
 #endif
         const size_t length = item.length();
         const char identifier = item[1];

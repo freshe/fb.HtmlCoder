@@ -35,10 +35,11 @@ namespace fb {
     public:
         std::string decode(std::string input);
     private:
-        std::size_t get_entity_number(const std::string &entity, const bool isHex);
-        std::set<std::string> get_entities(const std::string &input);
-        std::string decode_entity(const size_t &number);
-        void replace(std::string &subject, const std::string &search, const std::string &replace);
+        std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> convert;
+        std::size_t get_entity_number(const std::string& entity, const bool isHex);
+        std::set<std::string> get_entities(const std::string& input);
+        std::string decode_entity(const size_t& number);
+        void replace(std::string& subject, const std::string& search, const std::string& replace);
     };
 
     const std::map<std::string, std::string> named_html_entities
