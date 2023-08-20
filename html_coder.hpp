@@ -33,7 +33,7 @@
 namespace fb {
     class HtmlCoder {
     public:
-        std::string decode(std::string input);
+        void decode(std::string &input);
     private:
         std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> convert;
         std::size_t get_entity_number(const std::string& entity, const bool isHex);

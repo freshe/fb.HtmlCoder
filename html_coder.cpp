@@ -86,16 +86,16 @@ void fb::HtmlCoder::replace(std::string& subject, const std::string& search, con
     }
 }
 
-std::string fb::HtmlCoder::decode(std::string input) {
+void fb::HtmlCoder::decode(std::string &input) {
     if (input.empty()) {
-        return input;
+        return;
     }
 
     std::set<std::string> entities = HtmlCoder::get_entities(input);
     
     if (entities.size() == 0) {
-        /* No entities found, just return the original string */
-        return input;
+        /* No entities found, just return */
+        return;
     }
 
     for (auto const &item : entities) {
@@ -127,6 +127,4 @@ std::string fb::HtmlCoder::decode(std::string input) {
             HtmlCoder::replace(input, item, decoded);
         }
     }
-
-    return input;
 }
